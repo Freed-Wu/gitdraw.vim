@@ -1,0 +1,202 @@
+*gitdraw.txt* Draw your git heat map -- powered by the god of editor.
+>
+               _ _      _                           _
+          __ _(_) |_ __| |_ __ __ ___      ____   _(_)_ __ ___
+         / _` | | __/ _` | '__/ _` \ \ /\ / /\ \ / / | '_ ` _ \
+        | (_| | | || (_| | | | (_| |\ V  V /  \ V /| | | | | | |
+         \__, |_|\__\__,_|_|  \__,_| \_/\_(_)  \_/ |_|_| |_| |_|
+         |___/
+
+Version: 0.0.1
+=============================================================================
+CONTENTS                                                     *gitdraw-contents*
+
+01. Intro ..................................................... |gitdraw-intro|
+02. Keymaps ................................................. |gitdraw-keymaps|
+03. Commands ............................................... |gitdraw-commands|
+04. Variables ............................................. |gitdraw-variables|
+05. Filetypes ............................................. |gitdraw-filetypes|
+
+=============================================================================
+INTRO                                                           *gitdraw-intro*
+
+1. New a gitdraw file.
+>
+	enew
+        set filetype=gitdraw
+< 
+2.
+Edit it.
+You can use templates, then press |<C-A>| and |<C-X>| to change the color.
+>
+	Template
+< 
+3. compile it to a repository, and upload the compiled repository to your
+   repository website.
+*Note:* You must establish a remote repository manually.
+>
+	Compile
+< 
+
+=============================================================================
+FILETYPES                                                   *gitdraw-filetypes*
+
+gitdraw
+
+All characters between the first character of the eighth line and the end of
+the file belong to comment which will be ignored.
+The following keymaps, and commands only work in the buffer.
+
+=============================================================================
+KEYMAPS                                                       *gitdraw-keymaps*
+
+                                                              *gitdraw_Ctrl-A*
+<C-A>                   Make the color darker.
+
+                                                              *gitdraw_Ctrl-X*
+<C-X>                   Make the color lighter.
+
+=============================================================================
+COMMANDS                                                     *gitdraw-commands*
+
+                                               *:Template* *gitdraw-:Template*
+:Template [args]        Read the contents from template. By default, it is
+                        main.gitdraw in `g:gitdraw#template_dir`.
+
+                                                     *:Clean* *gitdraw-:Clean*
+:Clean [args]           Clean the compiled repository. By default, it is
+                        `g:gitdraw#repo_path`.
+
+                                                 *:Compile* *gitdraw-:Compile*
+:Compile [args]         Compile a gitdraw file to a repository. By default, it
+                        is current file.
+                        *Note:* `Compile` contain `Clean` and `Upload` by
+                        default.
+
+                                                   *:Upload* *gitdraw-:Upload*
+:Upload [args]          Upload the compiled repository. By default, it is
+                        `g:gitdraw#repo_path`.
+
+=============================================================================
+VARIABLES                                                   *gitdraw-variables*
+
+                                                      *g:gitdraw#convert_rule*
+g:gitdraw#convert_rule
+                        The rule to map character to git heap map level and
+                        highlight set.
+                        '〇', '一', '二', '三', and '四' means 0, 1, 2, 3, and
+                        4, which are square sharp, make it similar to git heap
+                        map.
+                        Default:
+>
+        let g:gitdraw#convert_rule = {
+                \ '〇': {
+                        \ 'convert_number': 0,
+                        \ 'highlight_set': 'guibg=Grey guifg=Grey ctermbg=Grey ctermfg=Grey',
+                        \ },
+                \ '一': {
+                        \ 'convert_number': 1,
+                        \ 'highlight_set': 'guibg=Yellow guifg=Yellow ctermbg=Yellow ctermfg=Yellow',
+                        \ },
+                \ '二': {
+                        \ 'convert_number': 2,
+                        \ 'highlight_set': 'guibg=Green guifg=Green ctermbg=Green ctermfg=Green',
+                        \ },
+                \ '三': {
+                        \ 'convert_number': 3,
+                        \ 'highlight_set': 'guibg=Cyan guifg=Cyan ctermbg=Cyan ctermfg=Cyan',
+                        \ },
+                \ '四': {
+                        \ 'convert_number': 4,
+                        \ 'highlight_set': 'guibg=Brown guifg=Brown ctermbg=Brown ctermfg=Brown',
+                        \ },
+                \ }
+< 
+
+                                                      *g:gitdraw#template_dir*
+g:gitdraw#template_dir
+                        The directory to restore templates.
+                        Default:
+>
+        let g:gitdraw#template_dir = expand('<sfile>:p:h:h') . '/template'
+< 
+
+                                                     *g:gitdraw#repeat_number*
+g:gitdraw#repeat_number
+                        Change convert_number of each character to commit
+                        number.
+                        By default, change 0 to 0, change an non-zero integer
+                        n to ((n - 1) * `g:gitdraw#repeat_number` + 1).
+                        You can redefine `gitdraw#commit_number`(nr,
+                        repeat_number).
+                        Default:
+>
+        let g:gitdraw#repeat_number = 1
+< 
+
+                                                         *g:gitdraw#repo_path*
+g:gitdraw#repo_path
+                        The path to restore the compiled repository.
+                        Default:
+>
+        let g:gitdraw#repo_path = 'git-drawing'
+< 
+
+                                                       *g:gitdraw#import_file*
+g:gitdraw#import_files
+                        Default:
+                        The files to be imported to the compiled repository.
+                        Default:
+>
+        let g:gitdraw#import_files = [
+                \ g:gitdraw#template_dir . '/README.md',
+                \ g:gitdraw#template_dir . '/../LICENSE'
+                \ ]
+< 
+
+                                                    *g:gitdraw#commit_message*
+g:gitdraw#commit_message
+                        The commit message.
+                        Default:
+>
+        let g:gitdraw#commit_message = 'gitdraw'
+< 
+
+                                                       *g:gitdraw#origin_name*
+g:gitdraw#origin_name
+                        The remote repository name.
+                        Default:
+>
+        let g:gitdraw#origin_name = 'origin'
+< 
+
+                                                      *g:gitdraw#repo_website*
+g:gitdraw#repo_website
+                        The remote repository website. Such as mine:
+                        <https://github.com/Freed-Wu/git-drawing>.
+                        Default:
+>
+        let g:gitdraw#repo_website = 'git@github.com:' . g:gitdraw#author_name
+                \ . '/git-drawing.git'
+< 
+
+                                                       *g:gitdraw#author_name*
+g:gitdraw#author_name
+                        The github account name.
+                        Default:
+>
+        let g:gitdraw#author_name = $USER
+< 
+
+                                                          *g:gitdraw#isupload*
+g:gitdraw#isupload
+                        The boolean variable to determine whether upload the
+                        compiled repository to `g:gitdraw#repo_website`.
+                        If it is false, you must upload the compiled
+                        repository manually.
+                        Default:
+>
+        let g:gitdraw#isupload = 1
+< 
+
+vim:tw=77:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
