@@ -84,7 +84,7 @@ function! gitdraw#upload(...) abort
 	endif
 
 	let l:origin = get(g:, 'gitdraw#origin_name', 'origin')
-	call system('git remote add ' . l:origin . ' ' . get(g:, 'gitdraw#website', 'git@github.com:' . get(g:, 'gitdraw#author_name', $USER) . '/git-drawing.git'))
+	call system('git remote add ' . l:origin . ' ' . get(g:, 'gitdraw#website', 'git@github.com:' . get(g:, 'gitdraw#author_name', executable('git') ? system('git config --global user.name') : expand('$USER')) . '/git-drawing.git'))
 	call system('git push -uf ' . l:origin . ' master')
 endfunction
 
@@ -133,6 +133,31 @@ function! gitdraw#nr2char(nr) abort
 		endif
 	endfor
 	call s:warn('No character! Please check your g:gitdraw#convert_rule.')
+endfunction
+
+function! gitdraw#result() abort
+	let l:nrss = []
+	for l:i in range(1, line('$'))
+		let l:chars = getline(l:i)
+		let l:nrs = []
+		for l:j in range(len(l:chars) / s:char_length)
+			let l:nrs += [gitdraw#char2nr(l:chars[(s:char_length * l:j):(s:char_length * (l:j + 1) - 1)])]
+		endfor
+		let l:nrss += [l:nrs]
+	endfor
+	return l:nrss
+endfunction
+
+function! gitdraw#dotfont() abort
+	let l:nrs = []
+	for l:i in gitdraw#result()
+		let l:nr = 0
+		for l:j in l:i
+			let l:nr = l:nr * 2 + l:j
+		endfor
+		let l:nrs += [l:nr]
+	endfor
+	return l:nrs
 endfunction
 
 function! s:warn(msg) abort

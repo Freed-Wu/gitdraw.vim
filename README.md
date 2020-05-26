@@ -1,53 +1,24 @@
 gitdraw.vim
 ===========
 
-Draw your git heat map, powered by the god of editor.
-
-中文说明见[知乎]
-
-Table of Contents
------------------
-
-   * [gitdraw.vim](#gitdrawvim)
-      * [Usage](#usage)
-	 * [Edit](#edit)
-	 * [Compile](#compile)
-      * [Features](#features)
-      * [Dependent](#dependent)
-      * [Install](#install)
-	 * [Package manager](#package-manager)
-	 * [Manual](#manual)
-      * [Customize](#customize)
-      * [Q &amp; A](#q--a)
-      * [Todo](#todo)
-	 * [Optimize the speed of compile.](#optimize-the-speed-of-compile)
-	 * [Add more hotkeys.](#add-more-hotkeys)
-      * [Thanks](#thanks)
-
-Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
-
-Usage
------
-
-### Edit
+Draw your git heat map, powered by the god of editor. [中文]
 
 ![edit]
-
-### Compile
 
 ![compile]
 
 Features
 --------
 
-1.  No dependency of web browser. Using vim as the UI.
+1.  No dependency of web browser. Use vim as UI.
 2.  Support upload your gitdraw to your repository website.
-3.  Cross platform.
+3.  Cross platform. Not need unix shell like [GalaxyMimi/git-draw].
 
 Dependent
 ---------
 
 1.  A distribution of vim. Such as [vim/vim].
+2.  [git/git].
 
 Install
 -------
@@ -131,12 +102,13 @@ Welcome to [PR]!
 Thanks
 ------
 
-1.  [GalaxyMimi/git-draw]
+-  [GalaxyMimi/git-draw]
 
-  [知乎]: https://zhuanlan.zhihu.com/p/141065072
+  [中文]: https://zhuanlan.zhihu.com/p/141065072
   [edit]: images/i_love_open_source.png
   [compile]: images/i_love_open_source-compile.png
   [vim/vim]: https://github.com/vim/vim
+  [git/git]: https://github.com/git/git
   [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
   [wsdjeg/dein-ui.vim]: https://github.com/wsdjeg/dein-ui.vim
   [haya14busa/dein-command.vim]: https://github.com/haya14busa/dein-command.vim

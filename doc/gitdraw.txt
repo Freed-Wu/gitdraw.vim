@@ -185,7 +185,7 @@ g:gitdraw#author_name
                         The github account name.
                         Default:
 >
-        let g:gitdraw#author_name = $USER
+        let g:gitdraw#author_name = system('git config --global user.name')
 < 
 
                                                           *g:gitdraw#isupload*
