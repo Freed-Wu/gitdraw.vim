@@ -1,5 +1,4 @@
 let s:nr_max = len(g:gitdraw#convert_rule) - 1
-let s:char_length = len(keys(g:gitdraw#convert_rule)[0])
 if !exists('g:gitdraw#template_dir')
 	let g:gitdraw#template_dir = expand('<sfile>:p:h:h') . '/template'
 endif
@@ -84,7 +83,7 @@ function! gitdraw#upload(...) abort
 	endif
 
 	let l:origin = get(g:, 'gitdraw#origin_name', 'origin')
-	call system('git remote add ' . l:origin . ' ' . get(g:, 'gitdraw#website', 'git@github.com:' . get(g:, 'gitdraw#author_name', executable('git') ? system('git config --global user.name') : expand('$USER')) . '/git-drawing.git'))
+	call system('git remote add ' . l:origin . ' ' . get(g:, 'gitdraw#website', 'git@github.com:' . get(g:, 'gitdraw#author_name', executable('git') ? trim(system('git config --global user.name')) : expand('$USER')) . '/git-drawing.git'))
 	call system('git push -uf ' . l:origin . ' master')
 endfunction
 
@@ -98,7 +97,7 @@ function! gitdraw#import(file_path) abort
 endfunction
 
 function! gitdraw#getchar(content, weekday, weeknr) abort
-	return a:content[a:weekday][(s:char_length * a:weeknr):(s:char_length * (a:weeknr + 1) - 1)]
+	return split(a:content[a:weekday], '\zs')[a:weeknr]
 endfunction
 
 function! gitdraw#content(content, weeknr, weekday, commitnr) abort
@@ -140,8 +139,8 @@ function! gitdraw#result() abort
 	for l:i in range(1, line('$'))
 		let l:chars = getline(l:i)
 		let l:nrs = []
-		for l:j in range(len(l:chars) / s:char_length)
-			let l:nrs += [gitdraw#char2nr(l:chars[(s:char_length * l:j):(s:char_length * (l:j + 1) - 1)])]
+		for l:j in range(len(split(l:chars, '\zs')))
+			let l:nrs += [gitdraw#char2nr(split(l:chars, '\zs')[l:j])]
 		endfor
 		let l:nrss += [l:nrs]
 	endfor
