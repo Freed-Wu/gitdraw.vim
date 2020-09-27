@@ -33,7 +33,7 @@ You can use templates, then press |<C-A>| and |<C-X>| to change the color.
 < 
 3. compile it to a repository, and upload the compiled repository to your
    repository website.
-*Note:* You must establish a remote repository manually.
+Note: You must establish a remote repository manually.
 >
 	Compile
 < 
@@ -70,7 +70,7 @@ COMMANDS                                                     *gitdraw-commands*
                                                  *:Compile* *gitdraw-:Compile*
 :Compile [args]         Compile a gitdraw file to a repository. By default, it
                         is current file.
-                        *Note:* `Compile` contain `Clean` and `Upload` by
+                        Note: `Compile` contain `Clean` and `Upload` by
                         default.
 
                                                    *:Upload* *gitdraw-:Upload*
@@ -185,7 +185,7 @@ g:gitdraw#author_name
                         The github account name.
                         Default:
 >
-        let g:gitdraw#author_name = system('git config --global user.name')
+        let g:gitdraw#author_name = trim(system('git config --global user.name'))
 < 
 
                                                           *g:gitdraw#isupload*

@@ -26,8 +26,8 @@ if !exists('g:gitdraw#convert_rule')
 endif
 
 for [s:key, s:val] in items(g:gitdraw#convert_rule)
-	execute 'syntax match gitdraw' . s:val.convert_number . ' "' . s:key . '"'
-	execute 'highlight gitdraw' . s:val.convert_number . ' ' . s:val.highlight_set
+	execute 'syntax match gitdraw' .. s:val.convert_number shellescape(s:key)
+	execute 'highlight gitdraw' .. s:val.convert_number s:val.highlight_set
 endfor
 
 " vim:set noet sts=0 sw=8 ts=8 tw=77 fdm=syntax:
